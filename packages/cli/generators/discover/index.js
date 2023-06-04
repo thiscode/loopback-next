@@ -76,13 +76,13 @@ module.exports = class DiscoveryGenerator extends ArtifactGenerator {
       description: g.f(
         'Boolean to disable camel case naming convention for columns',
       ),
-      default: false
+      default: false,
     });
 
     this.option('singularize', {
       type: Boolean,
       description: g.f('Boolean to enable singularizing model names'),
-      default: false
+      default: false,
     });
   }
 
