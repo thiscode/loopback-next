@@ -71,10 +71,18 @@ module.exports = class DiscoveryGenerator extends ArtifactGenerator {
       default: false,
     });
 
+    this.option('disableCamelCase', {
+      type: Boolean,
+      description: g.f(
+        'Boolean to disable camel case naming convention for columns',
+      ),
+      default: false
+    });
+
     this.option('singularize', {
       type: Boolean,
       description: g.f('Boolean to enable singularizing model names'),
-      default: false,
+      default: false
     });
   }
 
@@ -274,6 +282,7 @@ module.exports = class DiscoveryGenerator extends ArtifactGenerator {
         type: 'list',
         choices: this.namingConvention,
         default: false,
+        when: !this.options.disableCamelCase,
       },
     ]).then(props => {
       /* istanbul ignore next */
@@ -325,7 +334,8 @@ module.exports = class DiscoveryGenerator extends ArtifactGenerator {
         modelInfo.name,
         {
           schema: modelInfo.owner,
-          disableCamelCase: this.artifactInfo.disableCamelCase,
+          disableCamelCase:
+            this.options.disableCamelCase || this.artifactInfo.disableCamelCase,
           associations: this.options.relations,
           ...discoveryOptions,
         },
